@@ -1,6 +1,4 @@
 class Api::V1::UserItemsController < ApplicationController
-   
-
     def index
         user_items = UserItem.all
         render json: user_items
@@ -12,9 +10,7 @@ class Api::V1::UserItemsController < ApplicationController
     end
 
     def create
-      item = Item.find(params[:id])
-      user_item = UserItem.create(user_item_params)
-        
+      user_item = UserItem.create(user_item_params)  
     end
      
     private
