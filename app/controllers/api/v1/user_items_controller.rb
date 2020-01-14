@@ -1,29 +1,25 @@
 class Api::V1::UserItemsController < ApplicationController
-    skip_before_action :authorized, only: [:create], raise: false
+   
 
     def index
-        @users = User.all
-        render json: @userswi
+        user_items = UserItem.all
+        render json: user_items
     end
 
-    def profile
-        render json: { user: UserSerializer.new(current_user) }, status: :accepted
+    def show
+       user_item = UserItem.find(params[:id])
+      render json: user_item
     end
 
     def create
-        # byebug
-        @user = User.create(user_params)
-        if @user.valid?
-          @token = encode_token({ user_id: @user.id })
-          render json: { user: UserSerializer.new(@user), jwt: @token }, status: :created
-        else
-          render json: { error: 'failed to create user' }, status: :not_acceptable
-        end
+      item = Item.find(params[:id])
+      user_item = UserItem.create(user_item_params)
+        
     end
      
     private
     
-    def user_params
-      params.require(:user).permit(:username, :password, :name, :residence, :age, :occupation, :profile_pic)
+    def user_item_params
+      params.require(:user_item).permit(:user_id, :item_id, :favorite, :seller, :buyer)
     end
 end
