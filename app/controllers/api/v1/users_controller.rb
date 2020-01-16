@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create], raise: false
+    skip_before_action :authorized, only: [:create]
 
     def index
         users = User.all
@@ -11,7 +11,6 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
-        # byebug
         @user = User.create(user_params)
         if @user.valid?
           @token = encode_token({ user_id: @user.id })
@@ -24,6 +23,6 @@ class Api::V1::UsersController < ApplicationController
     private
     
     def user_params
-      params.require(:user).permit(:username, :password, :name, :residence, :age, :occupation, :profile_pic)
+      params.require(:user).permit(:username, :password, :name, :location, :favorites)
     end
 end
