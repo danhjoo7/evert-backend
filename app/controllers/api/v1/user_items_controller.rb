@@ -11,6 +11,7 @@ class Api::V1::UserItemsController < ApplicationController
 
     def create
       user_item = UserItem.create(user_item_params)  
+      render json: user_item
     end
      
     private
