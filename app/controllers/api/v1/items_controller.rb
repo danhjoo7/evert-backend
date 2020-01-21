@@ -7,7 +7,12 @@ class Api::V1::ItemsController < ApplicationController
 
     def create
         item = Item.create(item_params)
-        render json: item
+        if item.save
+            render json: {mesage: "Item succesfully created"}
+            # render json: item
+        else
+            render json: item.errors.full_messages  
+        end
     end
 
     def show
@@ -24,7 +29,7 @@ class Api::V1::ItemsController < ApplicationController
     private
 
     def item_params
-        params.require(:item).permit(:name, :brand, :description, :price, :size)
+        params.require(:item).permit(:name, :brand, :description, :price, :size, images: [])
     end
 end
 

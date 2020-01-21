@@ -3,4 +3,5 @@ class Item < ApplicationRecord
     has_many :users, through: :user_items
     has_many :item_categories
     has_many :categories, through: :item_categories
+    has_many_attached :images, service: :s3
 end
