@@ -1,4 +1,5 @@
 class Api::V1::ItemsController < ApplicationController
+    skip_before_action :authorized, only [:index, :show]
 
     def index
         items = Item.all 
